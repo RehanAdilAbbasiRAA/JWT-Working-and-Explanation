@@ -128,11 +128,11 @@ def custom_openapi():
         routes=app.routes,
     )
     openapi_schema["components"]["securitySchemes"] = {
-        "BearerAuth": {
-            "type": "http",
-            "scheme": "bearer",
-            "bearerFormat": "JWT"
-        },
+        # "BearerAuth": {
+        #     "type": "http",
+        #     "scheme": "bearer",
+        #     "bearerFormat": "JWT"
+        # },
         "OAuth2Password": {
             "type": "oauth2",
             "flows": {
@@ -148,7 +148,8 @@ def custom_openapi():
         for method in path_item.values():
             if path == "/login":
                 continue
-            method["security"] = [{"BearerAuth": []}, {"OAuth2Password": []}]
+            method["security"] = [{"OAuth2Password": []}]
+            # method["security"] = [{"BearerAuth": []}, {"OAuth2Password": []}]
 
     app.openapi_schema = openapi_schema
     return app.openapi_schema
